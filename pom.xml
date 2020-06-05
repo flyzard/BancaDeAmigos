@@ -1,0 +1,48 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>pt.ulisboa.ciencias.di</groupId>
+  <artifactId>projectoADS_2020</artifactId>
+  <version>1.0.0-beta</version>
+  <description>Banca de Amigos</description>
+  <packaging>jar</packaging>
+  
+  <properties>
+      <junit.version>4.13</junit.version>
+  </properties>  
+  
+  <developers>
+      <developer>
+          <id>celourenco</id>
+          <name>Carlos Lourenco</name>
+          <email>celourenco@fc.ul.pt</email>
+          <properties>
+              <active>true</active>
+          </properties>
+      </developer>
+  </developers>
+  
+  <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+              <!-- apenas necessario durante a fase de testes -->
+            <scope>test</scope>
+        </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+</project>
