@@ -25,7 +25,8 @@ public class SimpleClient {
 	 */
 	public static void main(String[] args) {
 
-		BancaDeAmigos banca = new BancaDeAmigos();
+		BancaDeAmigos banca = BancaDeAmigos.getInstance();
+
 		System.out.println(banca.registar("joao", "joao@fc.pt", "password", "nib 12341242342343"));
 		System.out.println(banca.registar("carlos", "carlos@fc.pt", "password", "nib 12341242342343"));
 		System.out.println(banca.registar("Mariana", "mariana@fc.pt", "password", "nib 12341242342343"));
@@ -84,7 +85,7 @@ public class SimpleClient {
 
 		// Propoe mudança de fiel depositário
 		System.out.println(banca.login("francisco@fc.pt", "password"));
-		System.out.println(banca.changeResponsible());
+		System.out.println(banca.changeResponsible("Novo groupo"));
 		System.out.println(banca.voteForGroupResponsible("Novo groupo", "mariana@fc.pt"));
 
 		System.out.println(banca.login("mariana@fc.pt", "password"));
@@ -114,15 +115,6 @@ public class SimpleClient {
 
 		// The last guy makes a payment
 
-		// 
-
-
-		
-		Grupo grupo = new Grupo("Grupo do camelo");
-
-
-
-		System.out.println(grupo.getName());
 
 	}
 }

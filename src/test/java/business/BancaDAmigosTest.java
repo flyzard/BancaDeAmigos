@@ -17,11 +17,12 @@ public class BancaDAmigosTest {
 	private String userName = "Joao Felizardo";
 	private String email = "joao@fcul.pt";
 	private String password = "password";
+	private String nib = "nib q232323rqwrwqeqw";
 
 	@Before // run before each test
 	public void setup() {
 		banca = new BancaDeAmigos();
-		assertEquals("Registado com sucesso!", banca.registar(userName, email, password));
+		assertEquals("Registado com sucesso!", banca.registar(userName, email, password, nib));
 		assertEquals("Logged in with success!", banca.login(email, password));
 		assertEquals("Wrong email or password!", banca.login(email, "pasd"));
 	}

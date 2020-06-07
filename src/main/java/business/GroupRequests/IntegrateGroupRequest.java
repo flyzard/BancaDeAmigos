@@ -14,5 +14,5 @@ public class IntegrateGroupRequest extends AbstractGroupRequest {
     public String toString() {
         final User user = getFrom();
         return user.getName() + " (" + user.getEmail() + ") deseja juntar-se ao grupo!";
-    }    
+    }
 }

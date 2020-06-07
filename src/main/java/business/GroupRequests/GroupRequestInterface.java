@@ -23,6 +23,4 @@ public interface GroupRequestInterface {
     public User getFrom();
 
     public boolean isProcessing();
-
-    public void userVoteForUser(User voter, User voted);
 }

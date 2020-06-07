@@ -2,11 +2,12 @@ package business;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import business.GroupRequests.ChangeGroupResponsibleRequest;
+import business.Elections.Election;
+import business.Elections.ElectionInterface;
 import business.GroupRequests.GroupRequestInterface;
 import business.GroupRequests.IntegrateGroupRequest;
-import business.transactions.InitialTransaction;
 import business.transactions.*;
 
 import java.security.Principal;
@@ -19,6 +20,7 @@ public class Grupo implements Group {
 	Set<User> users = new TreeSet<User>();
 	private ArrayList<GroupRequestInterface> requests = null;
 	private ArrayList<Transaction> transactions = null;
+	private Stack<ElectionInterface> elections = null;
 
 	// Fiel depositário
 	private User responsible = null;
@@ -29,6 +31,7 @@ public class Grupo implements Group {
 		this.users = new TreeSet<User>();
 		this.requests = new ArrayList<GroupRequestInterface>();
 		this.transactions = new ArrayList<Transaction>();
+		this.elections = new Stack<ElectionInterface>();
 		this.setResponsible(responsible);
 		this.addMember(responsible);
 
@@ -74,11 +77,7 @@ public class Grupo implements Group {
 	}
 
 	public boolean requestMembership(final User user) {
-		if (active) {
-			return this.requests.add(new IntegrateGroupRequest(user, this.users));
-		}
-
-		return false;
+		return active && this.requests.add(new IntegrateGroupRequest(user, this.users));
 	}
 
 	public boolean acceptNewUser(final User loggedUser, final String newUserEmail) {
@@ -134,55 +133,84 @@ public class Grupo implements Group {
 
 	public boolean changeResponsible(final User loggedUser) {
 		if (active && loggedUser == responsible) {
-			return this.requests.add(new ChangeGroupResponsibleRequest(loggedUser, this.users));
-		}
-
-		return false;
-	}
-
-	public boolean voteForGroupResponsible(final User loggedUser, final String newResponsibleEmail) {
-		Optional<GroupRequestInterface> req = getChangeResponsibleRequest();
-
-		if (req.isPresent()) {
-			final User user = this.getUserByEmail(newResponsibleEmail);
-			final GroupRequestInterface r = req.get();
-			if (null != user) {
-				r.userVoteForUser(loggedUser, user);
-				return true;
+			if (this.elections.empty() || (!this.elections.pop().isActive())) {
+				return this.elections.add(new Election(getActiveUsers()));	
 			}			
 		}
 
 		return false;
 	}
 
-	public boolean getChangeResponsibleVoting(final User loggedUser) {
-		Optional<GroupRequestInterface> req = getChangeResponsibleRequest();
+	public boolean voteForGroupResponsible(final User loggedUser, final String newResponsibleEmail) {
+		ElectionInterface election = this.elections.pop();
 
-		if (req.isPresent()) {
-			final ChangeGroupResponsibleRequest r = (ChangeGroupResponsibleRequest) req.get();
-			if (r.isAccepted()) {
-				r.
-			}
-				;
-				return true;
-			}
+		if (election.isActive()) {
+			election.voteFor(loggedUser.getEmail(), newResponsibleEmail);
+			return true;
 		}
+		
+		return false;
+	}
+
+	public String getChangeResponsibleVoting(final User loggedUser) {
+		ElectionInterface election = this.elections.pop();
+
+		String winner = election.getUnamimousWinner();
+		if (election.isFinished() && winner != null) {
+			responsible = getUserByEmail(winner);
+
+			return winner;
+		}
+
+		return null;
 	}
 
 	public boolean makePayment(final User loggedUser, final String destinyEmail, final double amount) {
-		return false;
+		return this.transactions.add(new PaymentTransaction(loggedUser, getUserByEmail(destinyEmail), amount));
 	}
 
-	public boolean getMyBalance(final User loggedUser) {
-		return false;
+	public double getMyBalance(final User loggedUser) {
+		double balance = 0;
+
+		Stream<Transaction> stream = this.transactions
+			.stream()
+			.filter(t -> t.getCanceledDate() == null)
+			.filter(t -> (t.getFrom() == loggedUser) || (t.getTo() == loggedUser));
+
+		balance += stream
+			.filter(trans -> trans.getAcceptedDate() != null && (trans instanceof ReinforcementTransaction || trans instanceof InitialTransaction))
+			.mapToDouble(t -> t.getAmount()).reduce(0, Double::sum);
+
+		balance += stream
+			.filter(trans -> trans.getAcceptedDate() != null && trans instanceof PaymentTransaction)
+			.filter(trans -> trans.getTo() == loggedUser)
+			.mapToDouble(t -> t.getAmount())
+			.reduce(0, Double::sum);
+
+		balance -= stream
+			.filter(trans -> trans.getAcceptedDate() != null && trans instanceof PaymentTransaction)
+			.filter(trans -> trans.getFrom() == loggedUser)
+			.mapToDouble(t -> t.getAmount()).reduce(0, Double::sum);
+
+		return balance;
 	}
 
 	public boolean abandonGroup(final User loggedUser) {
-		return false;
+		if (loggedUser == responsible) {
+			return false;	
+		}
+
+		return users.remove(loggedUser);	
 	}
 
 	public boolean closeGroup(final User loggedUser) {
-		return false;
+		if (loggedUser != responsible) {
+			return false;
+		}
+
+		this.active = false;
+
+		return true;
 	}
 
 	public List<GroupRequestInterface> getPendingMembershipRequests() {
@@ -202,21 +230,12 @@ public class Grupo implements Group {
 			.collect(Collectors.toList());
 	}
 
-	private Optional<GroupRequestInterface> getChangeResponsibleRequest() {
-		return this.requests
-			.stream()
-			.filter(req -> req instanceof ChangeGroupResponsibleRequest)
-			.filter(req -> req.isProcessing())
-			.findFirst();
-	}
 
 	private User getUserByEmail(String email) {
-		for (User u : this.users) {
-			if (u.getEmail() == email) {
-				return u;
-			}
-		}
+		return users.stream().filter(u -> u.getEmail() == email).findFirst().get();
+	}
 
-		return null;
+	private Integer getActiveUsers() {
+		return this.users.size();
 	}
 }
