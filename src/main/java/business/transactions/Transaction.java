@@ -20,4 +20,6 @@ public interface Transaction {
     public Transaction accept();
 
     public Transaction cancel();
+
+    public String toStringUser(User user);
 }

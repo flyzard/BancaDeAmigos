@@ -11,9 +11,8 @@ public class InitialTransaction extends AbstractTransaction {
     }
 
     @Override
-    public LocalDateTime getCanceledDate() {
-        // TODO Auto-generated method stub
-        return null;
+    public String toStringUser(User user) {
+        return "Deposito inicial em conta: " + this.getAmount();
     }
     
 }

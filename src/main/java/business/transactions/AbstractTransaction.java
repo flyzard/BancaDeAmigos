@@ -59,4 +59,14 @@ public abstract class AbstractTransaction implements Transaction {
         return this;
     }
 
+    @Override
+    public String toStringUser(User user) {
+        return "";
+    }
+
+    @Override
+    public LocalDateTime getCanceledDate() {
+        return this.caceledAt;
+    }
+
 }

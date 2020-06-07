@@ -11,9 +11,12 @@ public class PaymentTransaction extends AbstractTransaction {
     }
 
     @Override
-    public LocalDateTime getCanceledDate() {
-        // TODO Auto-generated method stub
-        return null;
+    public String toStringUser(User user) {
+        if (user.equals(this.getFrom())) {
+            return "Pagamento de : " + this.getAmount() + " a " + this.getTo().getEmail();
+        }
+
+        return "Recebeu: " + this.getAmount() + " de " + this.getFrom().getEmail();
     }
 
 }

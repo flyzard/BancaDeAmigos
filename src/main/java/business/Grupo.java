@@ -167,10 +167,10 @@ public class Grupo implements Group {
 			if (winner != null) {
 				responsible = getUserByEmail(winner);
 
-				return winner;	
+				return "The new responsible is: " + winner;	
 			}
 
-			return "A votação não foi unanime!";	
+			return "A votação não foi unanime!";
 		}
 
 		return "A votação ainda não terminou!";
@@ -181,6 +181,10 @@ public class Grupo implements Group {
 	}
 
 	public double getMyBalance(final User loggedUser) {
+		for (Transaction trans : this.transactions) {
+			
+		}
+
 		double balance = 0;
 
 		Stream<Transaction> stream = this.getMyValidTransactions(loggedUser);
