@@ -73,7 +73,7 @@ public class BancaDeAmigos {
         return "Wrong email or password!";
     }
 
-    public String createGroup(final String groupName, final String nib, final double initialCredit) {
+    public String createGroup(final String groupName, final double initialCredit) {
         if (this.groups.containsKey(groupName)) {
             return "Já existe um grupo com o nome " + groupName + "!";
         }
@@ -144,7 +144,7 @@ public class BancaDeAmigos {
     public String acknoledgeReinforcement(final String groupName, final String userEmail, final double amount) {
         try {
             if (this.getGroupByName(groupName).acknoledgeReinforcement(loggedUser, userEmail, amount)) {
-                return "O pedido de reforço de conta foi feito com sucesso!";
+                return "Reforço de conta confirmado com sucesso!";
             }
         } catch(GroupNotFoundException e) {
             return e.getMessage();
@@ -170,7 +170,6 @@ public class BancaDeAmigos {
     }
 
     public String voteForGroupResponsible(final String groupName, final String newResponsibleEmail) {
-
         try {
             if (this.getGroupByName(groupName).voteForGroupResponsible(loggedUser, newResponsibleEmail)) {
                 return "O seu voto para fiel depositário foi registado com sucesso!";
@@ -197,7 +196,7 @@ public class BancaDeAmigos {
         return result;
     }
 
-    public String payToOnGroup(final String groupName, final String destinyEmail, final double amount) {
+    public String payToOnGroup(final String destinyEmail, final String groupName, final double amount) {
         try {
             if (this.getGroupByName(groupName).makePayment(loggedUser, destinyEmail, amount)) {
                 return "Pagamento efectuado com sucesso!";
@@ -225,7 +224,7 @@ public class BancaDeAmigos {
     public String abandonGroup(final String groupName) {
         try {
             if (this.getGroupByName(groupName).abandonGroup(loggedUser)) {
-                return "O pedido para mudar fiel depositário foi feito com sucesso!";
+                return "O seu pedido para abandonar grupo foi realizado com sucesso!";
             }
         } catch(GroupNotFoundException e) {
             return e.getMessage();

@@ -1,6 +1,6 @@
 package business.Elections;
 
-public class Election extends AbstractElection implements ElectionInterface {
+public class Election extends AbstractElection {
 
     public Election(Integer totalVoters) {
         super(totalVoters);

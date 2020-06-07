@@ -34,7 +34,7 @@ public class SimpleClient {
 		
 		// Element creates and friends join
 		System.out.println(banca.login("joao@fc.pt", "password"));
-		System.out.println(banca.createGroup("Novo groupo", "NIB 1231231242343", 20.0));
+		System.out.println(banca.createGroup("Novo groupo", 20.0));
 
 		System.out.println(banca.login("carlos@fc.pt", "password"));
 		System.out.println(banca.joinGroup("Novo groupo"));
@@ -52,7 +52,7 @@ public class SimpleClient {
 		System.out.println(banca.acceptGroupRequests("Novo groupo", "francisco@fc.pt"));
 		System.out.println(banca.refuseGroupRequests("Novo groupo", "carlos@fc.pt"));
 
-		// Reforça a conta virtual
+		// // Reforça a conta virtual
 		System.out.println(banca.login("mariana@fc.pt", "password"));
 		System.out.println(banca.reinforceAccount("Novo groupo", 20.0));
 
@@ -71,7 +71,6 @@ public class SimpleClient {
 		System.out.println(banca.voteForGroupResponsible("Novo groupo", "mariana@fc.pt"));
 
 		System.out.println(banca.getVotingForGroupResponsibleResult("Novo groupo"));
-		System.out.println(banca.getVotingForGroupResponsibleResult("Novo groupo"));
 
 		// Joao Paga a Mariana e Mariana faz pagamento a Francisco
 		System.out.println(banca.login("joao@fc.pt", "password"));
@@ -84,37 +83,19 @@ public class SimpleClient {
 		System.out.println(banca.getBalance("Novo groupo"));
 
 		// Propoe mudança de fiel depositário
-		System.out.println(banca.login("francisco@fc.pt", "password"));
+		System.out.println(banca.login("joao@fc.pt", "password"));
 		System.out.println(banca.changeResponsible("Novo groupo"));
 		System.out.println(banca.voteForGroupResponsible("Novo groupo", "mariana@fc.pt"));
 
 		System.out.println(banca.login("mariana@fc.pt", "password"));
-		System.out.println(banca.voteForGroupResponsible("Novo groupo", "joao@fc.pt"));
+		System.out.println(banca.voteForGroupResponsible("Novo groupo", "mariana@fc.pt"));
 
-		System.out.println(banca.login("joao@fc.pt", "password"));
-		System.out.println(banca.voteForGroupResponsible("Novo groupo", "francisco@fc.pt"));
+		System.out.println(banca.login("francisco@fc.pt", "password"));
+		System.out.println(banca.voteForGroupResponsible("Novo groupo", "mariana@fc.pt"));
 		System.out.println(banca.getVotingForGroupResponsibleResult("Novo groupo"));
 		System.out.println(banca.abandonGroup("Novo groupo"));
 
-		System.out.println(banca.login("francisco@fc.pt", "password"));
+		System.out.println(banca.login("mariana@fc.pt", "password"));
 		System.out.println(banca.closeGroup("Novo groupo"));
-
-		// A guy registeres in the system
-
-		// A guy makes login in the system
-
-		// A guy creates as group in the system
-
-		// Another guy registers in the system
-
-		// This other guy joins the group
-
-		// This other guy makes the initial deposit
-
-		// The first guy accetps the initial deposit
-
-		// The last guy makes a payment
-
-
 	}
 }

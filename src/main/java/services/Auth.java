@@ -18,7 +18,7 @@ public class Auth {
      * @return
      */
     public boolean validateName(final String name) {
-        return name.length() > 4;
+        return name.length() > 2;
     }
 
     /**

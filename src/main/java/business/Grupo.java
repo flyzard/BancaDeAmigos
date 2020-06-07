@@ -82,7 +82,9 @@ public class Grupo implements Group {
 
 	public boolean acceptNewUser(final User loggedUser, final String newUserEmail) {
 		for (final GroupRequestInterface request : getPendingMembershipRequests()) {
-			if (request.getFrom().getEmail() == newUserEmail) {
+			final User newUser = request.getFrom();
+			if (newUser.getEmail() == newUserEmail) {
+				this.users.add(newUser);
 				return request.accept(loggedUser);
 			}
 		}
@@ -134,7 +136,7 @@ public class Grupo implements Group {
 	public boolean changeResponsible(final User loggedUser) {
 		if (active && loggedUser == responsible) {
 			if (this.elections.empty() || (!this.elections.pop().isActive())) {
-				return this.elections.add(new Election(getActiveUsers()));	
+				return this.elections.add(new Election(getActiveUsers()));
 			}			
 		}
 
@@ -142,10 +144,15 @@ public class Grupo implements Group {
 	}
 
 	public boolean voteForGroupResponsible(final User loggedUser, final String newResponsibleEmail) {
+		if (this.elections.empty()) {
+			return false;	
+		}
+
 		ElectionInterface election = this.elections.pop();
 
 		if (election.isActive()) {
 			election.voteFor(loggedUser.getEmail(), newResponsibleEmail);
+			this.elections.push(election);
 			return true;
 		}
 		
@@ -156,13 +163,17 @@ public class Grupo implements Group {
 		ElectionInterface election = this.elections.pop();
 
 		String winner = election.getUnamimousWinner();
-		if (election.isFinished() && winner != null) {
-			responsible = getUserByEmail(winner);
+		if (election.isFinished()) {
+			if (winner != null) {
+				responsible = getUserByEmail(winner);
 
-			return winner;
+				return winner;	
+			}
+
+			return "A votação não foi unanime!";	
 		}
 
-		return null;
+		return "A votação ainda não terminou!";
 	}
 
 	public boolean makePayment(final User loggedUser, final String destinyEmail, final double amount) {
@@ -172,27 +183,36 @@ public class Grupo implements Group {
 	public double getMyBalance(final User loggedUser) {
 		double balance = 0;
 
-		Stream<Transaction> stream = this.transactions
-			.stream()
-			.filter(t -> t.getCanceledDate() == null)
-			.filter(t -> (t.getFrom() == loggedUser) || (t.getTo() == loggedUser));
-
+		Stream<Transaction> stream = this.getMyValidTransactions(loggedUser);
+		
 		balance += stream
-			.filter(trans -> trans.getAcceptedDate() != null && (trans instanceof ReinforcementTransaction || trans instanceof InitialTransaction))
+			.filter(trans -> {
+				boolean condition = true;
+				condition = condition && trans.getAcceptedDate() != null;
+				condition = condition && (trans instanceof ReinforcementTransaction || trans instanceof InitialTransaction);
+				return  condition;
+			})
 			.mapToDouble(t -> t.getAmount()).reduce(0, Double::sum);
 
+		stream = this.getMyValidTransactions(loggedUser);
 		balance += stream
 			.filter(trans -> trans.getAcceptedDate() != null && trans instanceof PaymentTransaction)
 			.filter(trans -> trans.getTo() == loggedUser)
 			.mapToDouble(t -> t.getAmount())
 			.reduce(0, Double::sum);
 
+		stream = this.getMyValidTransactions(loggedUser);
 		balance -= stream
 			.filter(trans -> trans.getAcceptedDate() != null && trans instanceof PaymentTransaction)
 			.filter(trans -> trans.getFrom() == loggedUser)
 			.mapToDouble(t -> t.getAmount()).reduce(0, Double::sum);
 
 		return balance;
+	}
+
+	private Stream<Transaction> getMyValidTransactions(User loggedUser) {
+		return this.transactions.stream().filter(t -> t.getCanceledDate() == null)
+				.filter(t -> (t.getFrom() == loggedUser) || (t.getTo() == loggedUser));
 	}
 
 	public boolean abandonGroup(final User loggedUser) {
