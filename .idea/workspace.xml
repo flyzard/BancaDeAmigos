@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="93ed4f3a-6c9f-44a7-85b0-70c6e4003475" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/business/BancaDeAmigos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/business/BancaDeAmigos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/business/Grupo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/business/Grupo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/business/transactions/InitialTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/business/transactions/InitialTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/business/transactions/PaymentTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/business/transactions/PaymentTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/business/transactions/ReinforcementTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/business/transactions/ReinforcementTransaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/business/transactions/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/business/transactions/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/client/SimpleClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/client/SimpleClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/business/BancaDAmigosTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/business/BancaDAmigosTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/business/BancaDeAmigos.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/business/BancaDeAmigos.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/business/Grupo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/business/Grupo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/business/transactions/InitialTransaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/business/transactions/InitialTransaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/business/transactions/PaymentTransaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/business/transactions/PaymentTransaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/business/transactions/ReinforcementTransaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/business/transactions/ReinforcementTransaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/business/transactions/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/business/transactions/Transaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/client/SimpleClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/client/SimpleClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/business/BancaDAmigosTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/business/BancaDAmigosTest.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1d0BF8TUPWSIHEqLRwDLYKRKyfz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93ed4f3a-6c9f-44a7-85b0-70c6e4003475" name="Default Changelist" comment="" />
+      <created>1591552023992</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1591552023992</updated>
+      <workItem from="1591552028827" duration="158000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1591552090516">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="385" y="213" width="670" height="676" key="search.everywhere.popup/0.23.1440.877@0.23.1440.877" timestamp="1591552090516" />
+  </component>
+</project>

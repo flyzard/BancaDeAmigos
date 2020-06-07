@@ -1,10 +1,11 @@
 package services;
 
-import business.User;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * class para
+ * 
+ */
 public class Auth {
 
     private static final String regex = "^(.+)@(.+)$";

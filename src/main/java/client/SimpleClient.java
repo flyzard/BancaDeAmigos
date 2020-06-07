@@ -1,19 +1,12 @@
 package client;
 
-import java.security.acl.Group;
-
-// descomentar caso opte por usar handlers:
-
-// import use_cases.HandlerEntrarNoGrupo;
-// import use_cases.HandlerFazerPagamento;
-
 import business.*;
 
 /**
  * Cliente simples
  *	
- * @author ...
- * @version ...
+ * @author grupo 5
+ * @version 1
  * 
  */
 public class SimpleClient {
@@ -25,6 +18,7 @@ public class SimpleClient {
 	 */
 	public static void main(String[] args) {
 
+		// Get the instance 
 		BancaDeAmigos banca = BancaDeAmigos.getInstance();
 
 		System.out.println(banca.registar("joao", "joao@fc.pt", "password", "nib 12341242342343"));
